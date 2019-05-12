@@ -1,5 +1,6 @@
 package com.alldi.loginserverconnectpractice;
 
+import android.app.AlertDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import com.alldi.loginserverconnectpractice.databinding.ActivityLoginBinding;
 import com.alldi.loginserverconnectpractice.utils.ConnectServer;
 import com.alldi.loginserverconnectpractice.utils.ContextUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity {
@@ -41,6 +43,33 @@ public class LoginActivity extends BaseActivity {
                 ConnectServer.postRequestSignIn(mContext, inputId, inputPw, new ConnectServer.JsonResponseHandler() {
                     @Override
                     public void onResponse(JSONObject json) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+                                    int code = json.getInt("code");
+                                    if (code == 200){
+//                                        로그인 성공!
+
+
+
+                                    }else {
+//                                        로그인 실패. 왜실패했는지 AlertDialog
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                                        alertDialog.setTitle("로그인 실패 알림");
+                                        alertDialog.setMessage(json.getString("message"));
+                                        alertDialog.setPositiveButton("확인", null);
+                                        alertDialog.show();
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
 
                     }
                 });
