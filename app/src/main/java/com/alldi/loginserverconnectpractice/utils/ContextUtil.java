@@ -10,7 +10,7 @@ public class ContextUtil {
 
 //    이 메모에서 다루는 항목들의 리스트를 변수로 생성.
     private static final String USER_INPUT_ID = "USER_INPUT_ID";
-    private static final String USER_INPUT_PW = "USER_INPUT_PW";
+    private static final String USER_TOKEN = "USER_TOKEN";
 
 //    실제로 각각의 항목을 저장/불러오는 기능
 
@@ -30,6 +30,24 @@ public class ContextUtil {
 //        메모장 파일을 열어주는 작업.
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getString(USER_INPUT_ID, "");
+
+    }
+    //    setter : 토큰값을 저장하는 token_setter
+    public static void setUserToken(Context context, String token){
+
+//        메모장 파일(TXT)을 여는 작업.
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+
+        pref.edit().putString(USER_TOKEN, token).apply();
+
+    }
+
+    //    getter : 저장된 ID가 있다면, 불러오기.
+    public static String getUserToken(Context context){
+
+//        메모장 파일을 열어주는 작업.
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getString(USER_TOKEN, "");
 
     }
 

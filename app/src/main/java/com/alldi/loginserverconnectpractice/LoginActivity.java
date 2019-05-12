@@ -3,7 +3,9 @@ package com.alldi.loginserverconnectpractice;
 import android.app.AlertDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.alldi.loginserverconnectpractice.databinding.ActivityLoginBinding;
 import com.alldi.loginserverconnectpractice.utils.ConnectServer;
@@ -53,8 +55,18 @@ public class LoginActivity extends BaseActivity {
                                     if (code == 200){
 //                                        로그인 성공!
 
+                                        if (act.autoLoginCheckBox.isChecked()){
+//                                            자동로그인을 하려고 한다. 사용자가 표시
+//                                            로그인 성공 토큰값을 SharedPreferentce에 저장
+
+                                            JSONObject data = json.getJSONObject("data");
+                                            String token = data.getString("token");
+                                            ContextUtil.setUserToken(mContext, token);
 
 
+
+                                        }
+                                        Toast.makeText(mContext, json.getString("message"), Toast.LENGTH_SHORT).show();
                                     }else {
 //                                        로그인 실패. 왜실패했는지 AlertDialog
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
@@ -90,6 +102,9 @@ public class LoginActivity extends BaseActivity {
     public void setValues() {
         String savedUserId = ContextUtil.getUserInputId(mContext);
         act.loginIdEdt.setText(savedUserId);
+
+        String savedToken = ContextUtil.getUserToken(mContext);
+        Log.d("저장된 토큰값", String.format("토큰값 : %s",savedToken));
     }
 
     @Override
