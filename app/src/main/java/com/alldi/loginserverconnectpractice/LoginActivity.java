@@ -1,6 +1,7 @@
 package com.alldi.loginserverconnectpractice;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,7 +66,11 @@ public class LoginActivity extends BaseActivity {
                                             ContextUtil.setUserToken(mContext, token);
 
                                         }
-                                        Toast.makeText(mContext, json.getString("message"), Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        intent.putExtra("userToken", token);
+                                        startActivity(intent);
+                                        finish();
+
                                     }else {
 //                                        로그인 실패. 왜실패했는지 AlertDialog
                                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
