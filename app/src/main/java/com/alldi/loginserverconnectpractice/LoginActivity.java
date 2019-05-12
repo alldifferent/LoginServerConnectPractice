@@ -54,16 +54,15 @@ public class LoginActivity extends BaseActivity {
                                     int code = json.getInt("code");
                                     if (code == 200){
 //                                        로그인 성공!
+                                        JSONObject data = json.getJSONObject("data");
+                                        String token = data.getString("token");
+
 
                                         if (act.autoLoginCheckBox.isChecked()){
 //                                            자동로그인을 하려고 한다. 사용자가 표시
 //                                            로그인 성공 토큰값을 SharedPreferentce에 저장
 
-                                            JSONObject data = json.getJSONObject("data");
-                                            String token = data.getString("token");
                                             ContextUtil.setUserToken(mContext, token);
-
-
 
                                         }
                                         Toast.makeText(mContext, json.getString("message"), Toast.LENGTH_SHORT).show();
