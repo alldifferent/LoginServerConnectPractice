@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
                                 act.bankNameTxt.setText(bankName);
 
                                 int balance = user.getInt("balance");
-                                act.userBalanceTxt.setText(String.format("%d",balance));
+                                act.userBalanceTxt.setText(String.format("%,d P",balance));
 
                                 String billing_account = user.getString("billing_account");
                                 act.bankAccountTxt.setText(billing_account);
